@@ -1,5 +1,5 @@
 
-This repository contains the code for pytorch to run on CPU and GPU on Xavier AGX. The JetPack(JP) version is 4.6.1
+This repository contains the code for pytorch to run on CPU and GPU on Xavier AGX. The JetPack(JP) version is 4.5
 
 # SETUP
 
@@ -18,6 +18,8 @@ device = 'cuda'
 x = torch.rand(1,3,32,32).to(device)
 net= net.to("cuda")
 ```
+
+To update the batch size, change the first parameter of input data: x = torch.rand(batch,3,32,32)
 
 ## Layer Profiling
 For individual layer profiling, models may need to be re-written as seperate layers rather than blocks/groups etc.
@@ -49,3 +51,10 @@ for i in take_time_dict.values():
     print(f'{i:f}')
 
 ```
+
+take_time_dict keeps the layer info and execution time of per sequential block. This sequential block can be defined layer-wise (like vgg_layers.py) or can be group wise (resnet_torch.py) or can be whole neural network(vgg.py). To be able to get layer-wise results from each DNN, sequential layer definitions should be updated to similar pattern on vgg_layers.py
+
+
+##CPU core selection:
+
+Use taskset. Taskset -c $core_numbers $command_to_run. (e.g. taskset -c 4,5,6,7 python3 resnet_torch.py)
