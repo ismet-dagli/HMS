@@ -1,5 +1,5 @@
 
-This repository contains the code for pytorch to run on CPU and GPU on Xavier AGX. The JetPack(JP) version is 4.5
+This repository contains the code for pytorch to run on CPU and GPU on Xavier AGX. The JetPack(JP) version is 4.5. (R32.5)
 
 # SETUP
 
@@ -55,6 +55,6 @@ for i in take_time_dict.values():
 take_time_dict keeps the layer info and execution time of per sequential block. This sequential block can be defined layer-wise (like vgg_layers.py) or can be group wise (resnet_torch.py) or can be whole neural network(vgg.py). To be able to get layer-wise results from each DNN, sequential layer definitions should be updated to similar pattern on vgg_layers.py
 
 
-##CPU core selection:
+##CPU core selection
 
 Use taskset. Taskset -c $core_numbers $command_to_run. (e.g. taskset -c 4,5,6,7 python3 resnet_torch.py)
